@@ -23,7 +23,8 @@ export class Empresa {
         longitud: number,
         domicilio: string,
         email: string,
-        borrado: number = 0
+        borrado: number = 0,
+        noticias: Noticia[] = []
   ) {
     this.id = id;
     this.denominacion = denominacion;
@@ -35,5 +36,6 @@ export class Empresa {
     this.domicilio = domicilio;
     this.email = email;
     this.borrado = borrado;
+    this.noticias = noticias;
   }
 }
