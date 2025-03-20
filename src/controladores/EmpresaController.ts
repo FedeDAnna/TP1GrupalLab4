@@ -3,10 +3,31 @@ import connection from "../basedatos/basedatos";
 import { Empresa } from "../modelos/Empresa";
 import { getNoticiasDeEmpresa } from "./NoticiaController";
 
-export const getEmpresaXid = async (id: number, conn:any): Promise<Empresa> =>{
+export const getEmpresaXid = async (req: Request, res:Response, next:NextFunction) =>{
+    const conn = await connection.getConnection();
     try {
+        await conn.beginTransaction();
+        
+        const {id} = req.params;
         const [results] = await conn.query("SELECT * FROM empresa WHERE id = ? AND borrado=0", [id]);
-        return (results as Empresa[])[0]; 
+        const empresa: Empresa[] = await Promise.all((results as any[]).map(async (row) => ({
+            id: row.id,
+            denominacion: row.denominacion,
+            telefono: row.telefono,
+            horario_atencion: row.horario_atencion,
+            quienes_somos: row.quienes_somos,
+            latitud: row.latitud,
+            longitud: row.longitud,
+            domicilio: row.domicilio,
+            email: row.email,
+            borrado: row.borrado,
+            noticias: await getNoticiasDeEmpresa(row.id,conn), // Obtener los detalles del pedido
+          }))
+        );
+
+        res.status(200).json(empresa[0]);
+
+        await conn.commit();
     } catch (error) {
         console.error("Error al obtener el cliente por ID:", error);
         throw error;
