@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import connection from "../basedatos/basedatos";
 import { Empresa } from "../modelos/Empresa";
-import { getNoticiasDeEmpresa } from "./NoticiaController";
+import { getNoticiasDeEmpresa , eliminarNoticiasDeEmpresa} from "./NoticiaController";
 
 export const getEmpresaXid = async (req: Request, res:Response, next:NextFunction) =>{
     const conn = await connection.getConnection();
@@ -78,6 +78,9 @@ export const deleteEmpresa = async (req: Request, res:Response, next:NextFunctio
             return;
         }
         
+        await eliminarNoticiasDeEmpresa(conn, id);
+
+
         const [result] = await conn.query("UPDATE empresa SET borrado = 1 WHERE id = ?",[id]);
         await conn.commit();
         

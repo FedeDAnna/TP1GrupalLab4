@@ -24,3 +24,14 @@ export const getNoticiasDeEmpresa = async (empresaId: number, conn:any): Promise
       throw error;
     }
 }
+
+
+export const eliminarNoticiasDeEmpresa = async (conn: any, idEmpresa: string): Promise<void> => {
+    try {
+        await conn.query('UPDATE noticia SET borrado=1 WHERE idEmpresa=?', [idEmpresa]);
+        console.log(`Noticias de empresa con id  ${idEmpresa} eliminados lógicamente.`);
+    } catch (error) {
+        console.error(`Error al eliminar las noticias de la empresa ${idEmpresa}:`, error);
+        throw error; 
+    }
+};
