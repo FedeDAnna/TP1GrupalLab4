@@ -6,8 +6,6 @@ yarn.lock
 # Ignorar archivos de compilación de TypeScript
 dist/
 build/
-*.js
-*.js.map
 *.d.ts
 
 # Ignorar configuración de TypeScript
