@@ -61,36 +61,41 @@ export const getNoticiasOrdenadasPorFecha = async(req: Request, res: Response, n
 
 export const getNoticiasFiltradas = async(req: Request, res: Response, next: NextFunction) => {
     const conn = await connection.getConnection();
-    try{
+        try {
         await conn.beginTransaction();
-        const {textInput} = req.params;
-        const [results] = await conn.query("SELECT * FROM noticia ORDER BY borrado = 0 WHERE titulo LIKE ? OR resumen LIKE ? ORDER BY fecha_publicacion DESC",[textInput]);
-
-        const noticias: Noticia[] = await Promise.all((results as any[]).map(async(row) => ({
-            id: row.id,
-            titulo : row.titulo,
-            resumen : row.resumen,
-            imagen : row.imagen,
-            contenido_html : row.contenido_html,
-            publicada : row.publicada,
-            borrado : row.borrado,
-            fecha_publicacion : row.fecha_publicacion,
-            
-        }))
-    );
-
-        res.status(200).json(noticias);
-
-        await conn.commit();
     
-    }catch(error){
+        const { textInput } = req.params;
+        const valorBusqueda = `%${textInput}%`; // Agregamos comodines %
+    
+        const [results] = await conn.query(
+            "SELECT * FROM noticia WHERE borrado = 0 AND (titulo LIKE ? OR resumen LIKE ?) ORDER BY fecha_publicacion DESC",
+            [valorBusqueda, valorBusqueda]
+        );
+
+        //console.log("Noticias encontradas:", results);
+
+        const noticias: Noticia[] = (results as any[]).map(row => ({
+            id: row.id,
+            titulo: row.titulo,
+            resumen: row.resumen,
+            imagen: row.imagen,
+            contenido_html: row.contenido_html,
+            publicada: row.publicada,
+            borrado: row.borrado,
+            fecha_publicacion: row.fecha_publicacion
+        }));
+    
+        res.status(200).json(noticias);
+        await conn.commit();
+        } catch (error) {
         await conn.rollback();
-        console.error("Error al obtener el pedido por numero de comprobante: ",error);
+        console.error("Error al obtener las noticias filtradas:", error);
         next(error);
-    }finally{
+        } finally {
         conn.release();
-    }
+        }
 }
+
 
 
 export const eliminarNoticiasDeEmpresa = async (conn: any, idEmpresa: string): Promise<void> => {

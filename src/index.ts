@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import EmpresaRuta from "./rutas/EmpresaRuta";
 import NoticiaRuta from "./rutas/NoticiaRuta";
+import NoticiaRuta from "./rutas/NoticiaRuta";
 
 const app = express();
 const PORT = 3000;
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 
 app.use("/api", EmpresaRuta);
 app.use("/api", NoticiaRuta);
+
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
