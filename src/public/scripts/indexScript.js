@@ -52,3 +52,11 @@ function eliminarEmpresa(id){
     }
 }
 
+function buscar() {
+    const texto = document.getElementById("busquedaInput").value.trim();
+    if (texto !== "") {
+    window.location.href = `buscador.html?query=${encodeURIComponent(texto)}`;
+    } else {
+    alert("Por favor ingresá un término de búsqueda.");
+    }
+}
