@@ -4,7 +4,7 @@ import { Noticia } from "../modelos/Noticia";
 
 export const getNoticiasDeEmpresa = async (empresaId: number, conn:any): Promise<Noticia[]> => {
     try {
-        const [results] = await conn.query("SELECT * FROM noticia WHERE idEmpresa = ?",[empresaId]);
+        const [results] = await conn.query("SELECT * FROM noticia WHERE idEmpresa = ? AND borrado = 0",[empresaId]);
 
         const noticias: Noticia[] = await Promise.all(
             (results as any[]).map(async (row) => ({
