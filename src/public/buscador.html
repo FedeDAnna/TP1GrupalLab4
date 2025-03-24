@@ -1,39 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buscador</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <header>
-        <div id="denominacion">
-            Denominación Empresa
-        </div>
-        <div>
-            <h3>TELEFONO</h3>
-        </div>
-        <div id="telefono">
-            Telefono Y Horario
-        </div>
-        <div id="horario">
-            Horario
-        </div>
-    </header>
-    <div class="buscador">
-        <input type="text" placeholder="Buscar noticias..." id="buscar-noticia">
-    </div>
-    <div class="total-noticias">
-        <table>
-            <thead>
-                
-            </thead>
-            <tbody id="tbody-noticias">
+  <div class="container mt-4">
+    <h2>Resultados de la búsqueda</h2>
+    <p id="texto-buscado" class="text-muted"></p>
 
-            </tbody>
-        </table>
-    </div>
+    <!-- Contenedor donde se cargan las noticias -->
+    <div id="resultado-noticias" class="mt-4"></div>
+  </div>
 
+  <!-- Vinculamos el JS -->
+  <script src="/scripts/buscador.js"></script>
 </body>
-<footer id="footer"> Pie de pagina </footer>
 </html>
