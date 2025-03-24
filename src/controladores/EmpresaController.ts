@@ -21,7 +21,7 @@ export const getEmpresaXid = async (req: Request, res:Response, next:NextFunctio
             domicilio: row.domicilio,
             email: row.email,
             borrado: row.borrado,
-            noticias: await getNoticiasDeEmpresa(row.id,conn), // Obtener los detalles del pedido
+            noticias: await getNoticiasDeEmpresa(row.id,conn),
           }))
         );
 
@@ -93,4 +93,47 @@ export const deleteEmpresa = async (req: Request, res:Response, next:NextFunctio
     } finally{
         conn.release();
     }
+}
+
+export const actualizarEmpresa = async(req: Request, res: Response, next: NextFunction) => {
+    const conn = await connection.getConnection();
+    try {
+        conn.beginTransaction()
+        const empresa = req.body;
+        //console.log(empresa);
+        const [result] = await conn.query(
+            `UPDATE empresa SET denominacion = ?, telefono = ?, horario_atencion = ?, quienes_somos = ?, latitud=?, longitud=?, domicilio=?, email = ? WHERE id = ? AND borrado = 0`,
+            [empresa.denominacion, empresa.telefono, empresa.horario_atencion, empresa.quienes_somos, empresa.latitud, empresa.longitud, empresa.domicilio, empresa.email,empresa.id]
+        );
+
+        res.status(200).json({ message: "Empresa actualizada con éxito." });
+
+        await conn.commit();
+
+    } catch (error) {
+        await conn.rollback();
+        next(error);
+      } finally {
+        conn.release();
+      }
+}
+
+export const restablecer = async(req: Request, res: Response, next: NextFunction) =>  {
+    const conn = await connection.getConnection();
+    try {
+        conn.beginTransaction()
+        console.log("HOLA")
+        const [result] = await conn.query(`UPDATE empresa SET borrado = 0 WHERE borrado = 1`);
+        const [result2] = await conn.query(`UPDATE noticia SET borrado = 0 WHERE borrado = 1`);
+        console.log("Resultado de la actualización de empresa:", result);
+        res.status(200).json({ message: "Empresa  restablecida con éxito." });
+
+        await conn.commit();
+
+    } catch (error) {
+        await conn.rollback();
+        next(error);
+      } finally {
+        conn.release();
+      }
 }
