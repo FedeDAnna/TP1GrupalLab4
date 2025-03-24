@@ -3,8 +3,7 @@ const id = params.get("id");
 
 document.addEventListener("DOMContentLoaded", traerEmpresa);
 
-function traerEmpresa() {
-    
+function traerEmpresa() {    
 
     if (!id) {
         console.error("No se proporcionó un ID de empresa.");
@@ -61,7 +60,6 @@ function initCarrusel(noticias) {
         </div>
       `;
       carouselContent.appendChild(item);
-      //<img src="${noti.imagen.replace(/\\/g, "/")}" class="d-block w-100" alt="${noti.titulo}">
     });
 }
 

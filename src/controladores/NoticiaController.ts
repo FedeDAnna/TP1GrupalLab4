@@ -72,8 +72,6 @@ export const getNoticiasFiltradas = async(req: Request, res: Response, next: Nex
             [valorBusqueda, valorBusqueda]
         );
 
-        //console.log("Noticias encontradas:", results);
-
         const noticias: Noticia[] = (results as any[]).map(row => ({
             id: row.id,
             titulo: row.titulo,

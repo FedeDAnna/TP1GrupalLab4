@@ -32,7 +32,14 @@ function mostrarEmpresas(){
             });
 }
 
-
+function buscar() {
+    const texto = document.getElementById("busquedaInput").value.trim();
+    if (texto !== "") {
+    window.location.href = `buscador.html?query=${encodeURIComponent(texto)}`;
+    } else {
+    alert("Por favor ingresá un término de búsqueda.");
+    }
+}
 function eliminarEmpresa(id){
     if (confirm(`¿Estás seguro de que deseas eliminar la empresa de id = ${id}?`)) {
         fetch(`/api/empresas/${id}`, {

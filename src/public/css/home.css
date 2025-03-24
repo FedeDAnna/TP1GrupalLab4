@@ -71,7 +71,6 @@
   #mapa {
     background-color: #eee;
     padding: 40px 20px;
-    text-align: center;
   }
 
   #mapa h3 {
@@ -87,6 +86,10 @@
     border: 2px solid #00AEEF;
     border-radius: 10px;
     overflow: hidden;
+  }
+  gmp-map-3d {
+    height: 100%;
+    width: 100%;
   }
 
   footer {

@@ -3,11 +3,6 @@ import { getEmpresa, deleteEmpresa, getEmpresaXid, actualizarEmpresa, restablece
 
 const router = express.Router();
 
-
-
-
-
-
 router.get("/empresas",getEmpresa);
 router.get("/empresas/:id",getEmpresaXid);
 router.delete("/empresas/:id",deleteEmpresa);
