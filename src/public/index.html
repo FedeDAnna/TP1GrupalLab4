@@ -5,9 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    <h1>inicio</h1>
+  <header>    
+    <div class="title-inicio">
+        INICIO
+    </div>
+</header>    
+    <div class="container mt-4">
+      <div class="form-inline">
+        <input type="text" id="busquedaInput" class="form-control mr-2" placeholder="Buscar noticias...">
+        <button class="btn btn-success" onclick="buscar()">Buscar</button>
+        <button type="button" class="btn btn-primary" onclick="crearEmpresa()" data-toggle="modal" data-target="#agregarEmpresa">Añadir Empresa</button>
+      </div>
+    </div>
+    
     <table id="tabla-empresas">
         <thead>
           <tr>
@@ -25,40 +38,11 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modalTitle" id="modalTitle">Bienvenido a mi sitio</h5>
+              <h5 class="modalTitle" id="modalTitle">Modificación Empresa</h5>
               <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
             </div>
-            <div class="modal-body">
-              <p>
-                <form id="empresaForm">
-                  <label for="denominacion">Denominación:</label>
-                  <input type="text" id="denominacion" name="denominacion" required>
-
-                  <label for="telefono">Teléfono:</label>
-                  <input type="text" id="telefono" name="telefono" required>
-
-                  <label for="horarioAtencion">Horario de Atención:</label>
-                  <input type="text" id="horarioAtencion" name="horarioAtencion" required>
-
-                  <label for="quienesSomos">Quienes Somos:</label>
-                  <textarea id="quienesSomos" name="quienesSomos" rows="3" placeholder="hola" required>
-                  </textarea>
+            <div class="modal-body" id>
                   
-                  <label for="latitud">Latitud:</label>
-                  <input type="number" id="latitud" name="latitud" required/>
-
-                  <label for="longitud">Longitud:</label>
-                  <input type="number" id="longitud" name="longitud" required>
-                  
-                  <label for="domicilio">Domicilio:</label>
-                  <input type="text" id="domicilio" name="domicilio" required>
-                  
-                  <label for="correo">Correo</label>
-                  <input type="email" id="correo" name="correo" required>
-                  
-                  <button type="submit" class="btn btn-primary" >Listo</button>
-                </form>
-              </p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -67,6 +51,46 @@
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="modificarNoticia" tabindex="-1" aria-hidden="true" aria-labelledby="modificarNoticia" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modalTitle" id="modificarNoticia">Modificación Noticia</h5>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body" id>
+                 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="agregarEmpresa" tabindex="-1" aria-hidden="true" aria-labelledby="agregarEmpresa" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modalTitle" id="modalTitle">Añadir Empresa</h5>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body" id>
+                  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <button onclick="restablecer()">Restablecer BD</button>
+      </footer>
 
       
 <script src="scripts/indexScript.js"></script>
