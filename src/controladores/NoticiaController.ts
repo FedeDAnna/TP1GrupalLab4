@@ -2,6 +2,7 @@ import { ResultSetHeader } from "mysql2";
 import { Request, Response, NextFunction } from "express";
 import connection from "../basedatos/basedatos";
 import { Noticia } from "../modelos/Noticia";
+import {obtenerEmpresaPorId} from "./EmpresaController"
 import { stat } from "fs";
 
 export const getNoticiasDeEmpresa = async (empresaId: number, conn:any): Promise<Noticia[]> => {
@@ -220,5 +221,35 @@ export const getNoticiasXEmpresa = async (req: Request, res: Response, next: Nex
       throw error;
     } finally{
         conn.release();
+    }
+};
+
+export const getNoticiaXid = async (req: Request, res:Response, next:NextFunction) =>{
+    const conn = await connection.getConnection();
+    try {
+        await conn.beginTransaction();
+        
+        const {id} = req.params;
+        const [results] = await conn.query("SELECT * FROM noticia WHERE id = ? AND borrado=0", [id]);
+        const noticia: Noticia[] = await Promise.all((results as any[]).map(async (row) => ({
+            id: row.id,
+            titulo: row.titulo,
+            resumen: row.resumen,
+            imagen: row.imagen,
+            contenido_html: row.contenido_html,
+            publicada: row.publicada,
+            fecha_publicacion: row.fecha_publicacion,
+            borrado: row.borrado,
+            empresa: await obtenerEmpresaPorId(row.idEmpresa, conn)
+
+          }))
+        );
+
+        res.status(200).json(noticia[0]);
+
+        await conn.commit();
+    } catch (error) {
+        console.error("Error al obtener la noticia por ID:", error);
+        throw error;
     }
 };

@@ -52,7 +52,7 @@ function initCarrusel(noticias) {
       const item = document.createElement("div");
       item.className = `carousel-item ${index === 0 ? "active" : ""}`;
       item.innerHTML = `
-        <a href="noticias.html?id=${noti.id}">
+        <a href="detalle.html?id=${noti.id}">
           <img src="../${noti.imagen}" class="d-block w-100" alt="${noti.titulo}">
         </a>
         <div class="carousel-caption d-none d-md-block">

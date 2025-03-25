@@ -3,34 +3,23 @@ import connection from "../basedatos/basedatos";
 import { Empresa } from "../modelos/Empresa";
 import { getNoticiasDeEmpresa , eliminarNoticiasDeEmpresa} from "./NoticiaController";
 
-export const getEmpresaXid = async (req: Request, res:Response, next:NextFunction) =>{
+export const getEmpresaXid = async (req: Request, res: Response, next: NextFunction) => {
     const conn = await connection.getConnection();
     try {
         await conn.beginTransaction();
-        
-        const {id} = req.params;
-        const [results] = await conn.query("SELECT * FROM empresa WHERE id = ? AND borrado=0", [id]);
-        const empresa: Empresa[] = await Promise.all((results as any[]).map(async (row) => ({
-            id: row.id,
-            denominacion: row.denominacion,
-            telefono: row.telefono,
-            horario_atencion: row.horario_atencion,
-            quienes_somos: row.quienes_somos,
-            latitud: row.latitud,
-            longitud: row.longitud,
-            domicilio: row.domicilio,
-            email: row.email,
-            borrado: row.borrado,
-            noticias: await getNoticiasDeEmpresa(row.id,conn),
-          }))
-        );
 
-        res.status(200).json(empresa[0]);
+        const { id } = req.params;
+        const empresa = await obtenerEmpresaPorId(Number(id), conn);
+
+        res.status(200).json(empresa);
 
         await conn.commit();
     } catch (error) {
-        console.error("Error al obtener el cliente por ID:", error);
-        throw error;
+        console.error("Error al obtener la empresa:", error);
+        await conn.rollback();
+        res.status(500).json({ error: "Error interno del servidor" });
+    } finally {
+        conn.release();
     }
 };
 
@@ -51,7 +40,7 @@ export const getEmpresa = async (req: Request, res:Response, next:NextFunction) 
             domicilio: row.domicilio,
             email: row.email,
             borrado: row.borrado,
-            noticias: await getNoticiasDeEmpresa(row.id,conn), // Obtener los detalles del pedido
+            noticias: await getNoticiasDeEmpresa(row.id,conn), // Obtener los detalles de las noticias
           }))
         );
 
@@ -137,3 +126,27 @@ export const restablecer = async(req: Request, res: Response, next: NextFunction
         conn.release();
       }
 }
+
+export const obtenerEmpresaPorId = async (id: number, conn: any): Promise<Empresa | null> => {
+    const [results] = await conn.query("SELECT * FROM empresa WHERE id = ? AND borrado=0", [id]);
+    
+    if (results.length === 0) return null;
+
+    const row = results[0];
+
+    const empresa: Empresa = {
+        id: row.id,
+        denominacion: row.denominacion,
+        telefono: row.telefono,
+        horario_atencion: row.horario_atencion,
+        quienes_somos: row.quienes_somos,
+        latitud: row.latitud,
+        longitud: row.longitud,
+        domicilio: row.domicilio,
+        email: row.email,
+        borrado: row.borrado,
+        noticias: await getNoticiasDeEmpresa(row.id, conn),
+    };
+
+    return empresa;
+};
