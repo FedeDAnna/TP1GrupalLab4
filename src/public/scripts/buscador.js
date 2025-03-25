@@ -55,6 +55,15 @@ function mostrarNoticiasFlitradas(texto){
 }
 */
 
+function buscar() {
+  const texto = document.getElementById("busquedaInput2").value.trim();
+  if (texto !== "") {
+  window.location.href = `buscador.html?query=${encodeURIComponent(texto)}`;
+  } else {
+  alert("Por favor ingresá un término de búsqueda.");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const texto = params.get("query");
