@@ -12,6 +12,7 @@
       <div class="form-inline">
         <input type="text" id="busquedaInput" class="form-control mr-2" placeholder="Buscar noticias...">
         <button class="btn btn-success" onclick="buscar()">Buscar</button>
+        <button type="button" class="btn btn-primary" onclick="crearEmpresa()" data-toggle="modal" data-target="#agregarEmpresa">Añadir Empresa</button>
       </div>
     </div>
     
@@ -64,6 +65,23 @@
         </div>
       </div>
 
+      <div class="modal fade" id="agregarEmpresa" tabindex="-1" aria-hidden="true" aria-labelledby="agregarEmpresa" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modalTitle" id="modalTitle">Añadir Empresa</h5>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body" id>
+                  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
 
       <footer>
         <button onclick="restablecer()">Restablecer BD</button>

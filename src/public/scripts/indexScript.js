@@ -123,7 +123,7 @@ function modificarEmpresa(boton){
             fila.innerHTML = `
                 <td>${noticia.titulo}</td>
                 <td>
-                    <button type="button" class="btn btn-primary" onclick="Hola()">Acceder</button>
+                    <a href="detalle.html?id=${noticia.id}" class="btn btn-primary">Ver Detalle</a>
                     <button onclick="modificarNoticia(this)" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarNoticia" data-noticia='${JSON.stringify(noticia)}' data-empresa='${JSON.stringify(empresa)}'> Modificar </button>
                     <button type="button" class="btn btn-danger" onclick="EliminarNoticia(${noticia.id},this)">Eliminar</button>
                 </td>
@@ -291,7 +291,7 @@ function recargarTablaNoticias(empresa){
                         fila.innerHTML = `
                             <td>${noticia.titulo}</td>
                             <td>
-                                <button type="button" class="btn btn-primary" onclick="Hola()">Acceder</button>
+                                <a href="detalle.html?id=${noticia.id}" class="btn btn-primary">Ver Detalle</a>
                                 <button onclick="modificarNoticia(this)" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarNoticia" data-noticia='${JSON.stringify(noticia)}'> Modificar </button>
                                 <button type="button" class="btn btn-danger" onclick="EliminarNoticia(${noticia.id},this)">Eliminar</button>
                             </td>
@@ -374,7 +374,7 @@ function agregarNoticia(boton){
             fila.innerHTML = `
                 <td>${nuevaNoticia.titulo}</td>
                 <td>
-                    <button type="button" class="btn btn-primary" onclick="Hola()">Acceder</button>
+                    <a href="detalle.html?id=${nuevaNoticia.id}" class="btn btn-primary">Ver Detalle</a>
                     <button onclick="modificarNoticia(this)" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modificarNoticia" data-noticia='${JSON.stringify(data.noticia)}'>Modificar</button>
                     <button type="button" class="btn btn-danger" onclick="EliminarNoticia(${data.noticia.id}, this)">Eliminar</button>
                 </td>
@@ -389,6 +389,82 @@ function agregarNoticia(boton){
         });
     }
 }
+
+function crearEmpresa(){
+    
+
+
+    const modalBody = document.querySelector("#agregarEmpresa .modal-body");
+    modalBody.innerHTML = `
+      <form id="empresaForm">
+          <label for="denominacion">Denominacióooon:</label>
+          <input type="text" id="denominacion" name="denominacion" required>
+
+          <label for="telefono">Teléfono:</label>
+          <input type="text" id="telefono" name="telefono" required>
+
+          <label for="horarioAtencion">Horario de Atención:</label>
+          <input type="text" id="horarioAtencion" name="horarioAtencion" required>
+
+          <label for="quienesSomos">Quienes Somos:</label>
+          <textarea id="quienesSomos" name="quienesSomos" rows="3"> </textarea>
+
+          <label for="latitud">Latitud:</label>
+          <input type="number" id="latitud" name="latitud" required/>
+
+          <label for="longitud">Longitud:</label>
+          <input type="number" id="longitud" name="longitud" required>
+
+          <label for="domicilio">Domicilio:</label>
+          <input type="text" id="domicilio" name="domicilio" required>
+
+          <label for="correo">Correo:</label>
+          <input type="email" id="correo" name="correo" required>
+
+          <button type="submit" class="btn btn-primary">Listo</button>
+      </form>
+    `;
+
+    const form = document.getElementById("empresaForm");
+
+form.onsubmit = function (e) {
+        e.preventDefault();
+
+        const nuevaEmpresa = {
+            denominacion: document.getElementById("denominacion").value,
+            telefono: document.getElementById("telefono").value,
+            horario_atencion: document.getElementById("horarioAtencion").value,
+            quienes_somos: document.getElementById("quienesSomos").value.trim(),
+            latitud: parseFloat(document.getElementById("latitud").value),
+            longitud: parseFloat(document.getElementById("longitud").value),
+            domicilio: document.getElementById("domicilio").value,
+            email: document.getElementById("correo").value
+        };
+        
+        fetch(`/api/empresas`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(nuevaEmpresa)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("No se pudo crear la empresa");
+            return response.json();
+        })
+        .then(data => {
+            alert("Empresa creada correctamente");
+            cargarpagina();
+            $('#modalActualizar').modal('hide');
+        })
+        .catch(error => {
+            console.error("Error al craer empresa:", error);
+            alert("Hubo un error al crear la empresa");
+        });
+    }
+
+}
+
 
 
 

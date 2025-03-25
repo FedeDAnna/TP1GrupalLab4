@@ -150,3 +150,35 @@ export const obtenerEmpresaPorId = async (id: number, conn: any): Promise<Empres
 
     return empresa;
 };
+
+export const guardarEmpresa = async(req: Request, res: Response, next: NextFunction) => {
+    const conn = await connection.getConnection();
+    try {
+        await conn.beginTransaction();
+        const empresa = req.body;
+
+        console.log(empresa);
+        const [result] = await conn.query(
+            "INSERT INTO empresa (denominacion, telefono, horario_atencion, quienes_somos, latitud, longitud, domicilio, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            [
+                empresa.denominacion,
+                empresa.telefono,
+                empresa.horario_atencion,
+                empresa.quienes_somos,
+                empresa.latitud,
+                empresa.longitud,
+                empresa.domicilio,
+                empresa.email
+            ]
+        );
+
+        await conn.commit();
+        res.status(201).json({message: "Empresa creada con éxito"});
+    } catch (error) {
+        await conn.rollback();
+        console.error("Error al guardar la empresa:", error);
+        res.status(500).json({ message: "Error al guardar la empresa" });
+    } finally {
+        conn.release();
+    }
+}
