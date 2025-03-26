@@ -32,7 +32,7 @@ export const getNoticiasOrdenadasPorFecha = async(req: Request, res: Response, n
     const conn = await connection.getConnection();
     try{
         await conn.beginTransaction();
-        const [results] = await conn.query("SELECT * FROM noticia ORDER BY borrado = 0  ORDER BY fecha_publicacion DESC");
+        const [results] = await conn.query("SELECT * FROM noticia WHERE borrado = 0  ORDER BY fecha_publicacion DESC LIMIT  20");
 
         const noticias: Noticia[] = await Promise.all((results as any[]).map(async(row) => ({
             id: row.id,
@@ -66,10 +66,11 @@ export const getNoticiasFiltradas = async(req: Request, res: Response, next: Nex
         await conn.beginTransaction();
     
         const { textInput } = req.params;
+        
         const valorBusqueda = `%${textInput}%`; // Agregamos comodines %
-    
+      
         const [results] = await conn.query(
-            "SELECT * FROM noticia WHERE borrado = 0 AND (titulo LIKE ? OR resumen LIKE ?) ORDER BY fecha_publicacion DESC",
+            "SELECT * FROM noticia WHERE borrado = 0 AND (titulo LIKE ? OR resumen LIKE ?) ORDER BY fecha_publicacion DESC LIMIT  20",
             [valorBusqueda, valorBusqueda]
         );
 
@@ -94,7 +95,6 @@ export const getNoticiasFiltradas = async(req: Request, res: Response, next: Nex
         conn.release();
         }
 }
-
 
 
 export const eliminarNoticiasDeEmpresa = async (conn: any, idEmpresa: string): Promise<void> => {

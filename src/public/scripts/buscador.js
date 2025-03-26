@@ -1,8 +1,6 @@
-/*const { response } = require("express");
-
 document.addEventListener("DOMContentLoaded", cargarpagina);
-
 function cargarpagina(){
+
     fetch("/api/noticias")
         .then((response) => response.json())
         .then((data) => { 
@@ -19,88 +17,36 @@ function mostrarNoticias(data){
     tbNoticias.innerHTML="";
             data.forEach(noticia => {
                 const fila = document.createElement("tr");
+
+                let fechaFormat = noticia.fecha_publicacion.split("T")[0];
+                let arrayFecha = fechaFormat.split("-");
+                let formatArg = `${arrayFecha[2]}-${arrayFecha[1]}-${arrayFecha[0]}`;
+
                 fila.innerHTML = `
-                    <td>${noticia.imagen}</td>
-                    <td>
-                    ${noticia.titulo}<br>
-                    ${noticia.resumen}
-                    ${noticia.fecha}
+                    <td><img class="imagenes" src="../${noticia.imagen}" alt="Texto img"></td>
+                    <td style="padding:10px; ">
+                    <span class="titulo-noticia">${noticia.titulo}</span><br>
+                    ${noticia.resumen}<br>
+                    <span class="fechas">Fecha de Publicación: ${formatArg}</span>
                     </td>
                 `;
                 tbNoticias.appendChild(fila);
             });
+            
 }
 
-function mostrarNoticiasFlitradas(texto){
-
-    fetch(`/api/noticia/${texto}`)
+function mostrarNoticiasFlitradas(){
+  
+  var texto = document.getElementById("busquedaInput").value;
+  
+    fetch(`/api/noticias/filtradas/${texto}`)
         .then(response => response.json())
         .then(data => {
-            const tbNoticias = document.getElementById("tbody-noticias");
-            tbNoticias.innerHTML="";
-            data.forEach(noticia => {
-                const fila = document.createElement("tr");
-                fila.innerHTML = `
-                    <td>${noticia.imagen}</td>
-                    <td>
-                    ${noticia.titulo}<br>
-                    ${noticia.resumen}
-                    ${noticia.fecha}
-                    </td>
-                `;
-                tbNoticias.appendChild(fila);
-            });
-        })
+          
+            mostrarNoticias(data);
+            }); 
+        
 
 }
-*/
 
-function buscar() {
-  const texto = document.getElementById("busquedaInput2").value.trim();
-  if (texto !== "") {
-  window.location.href = `buscador.html?query=${encodeURIComponent(texto)}`;
-  } else {
-  alert("Por favor ingresá un término de búsqueda.");
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const texto = params.get("query");
-
-  if (texto) {
-    document.getElementById("texto-buscado").textContent = `Buscaste: "${texto}"`;
-    cargarNoticias(texto);
-  } else {
-    alert("No se proporcionó texto de búsqueda.");
-  }
-});
-
-function cargarNoticias(texto) {
-  fetch(`/api/noticias/filtradas/${encodeURIComponent(texto)}`)
-    .then(response => response.json())
-    .then(data => mostrarNoticias(data))
-    .catch(error => console.error("Error al buscar noticias:", error));
-}
-
-function mostrarNoticias(noticias) {
-  const contenedor = document.getElementById("resultado-noticias");
-  contenedor.innerHTML = "";
-
-  if (noticias.length === 0) {
-    contenedor.innerHTML = "<p>No se encontraron resultados.</p>";
-    return;
-  }
-
-  noticias.forEach(noticia => {
-    const card = document.createElement("div");
-    card.className = "card my-3 p-3";
-    card.innerHTML = `
-      <h4>${noticia.titulo}</h4>
-      <p><strong>Resumen:</strong> ${noticia.resumen}</p>
-      <p><strong>Fecha:</strong> ${new Date(noticia.fecha_publicacion).toLocaleDateString()}</p>
-    `;
-    contenedor.appendChild(card);
-  });
-}
 

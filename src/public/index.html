@@ -15,8 +15,7 @@
 </header>    
     <div class="container mt-4">
       <div class="form-inline">
-        <input type="text" id="busquedaInput" class="form-control mr-2" placeholder="Buscar noticias...">
-        <button class="btn btn-success" onclick="buscar()">Buscar</button>
+          <a class="btn btn-success" href="buscador.html">Noticias</a>    
         <button type="button" class="btn btn-primary" onclick="crearEmpresa()" data-toggle="modal" data-target="#agregarEmpresa">Añadir Empresa</button>
       </div>
     </div>
@@ -97,15 +96,7 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
       <script src="https://cdn.tiny.cloud/1/xnm41om935g3uhmxuhslqm0fhqnqaromcn3nn7ja7qph854g/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
       <script src="scripts/indexScript.js"></script>
-      <script>
-        tinymce.init({
-          selector: '#miEditor',
-          height: 300,
-          menubar: false,
-          plugins: 'lists link image table code',
-          toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code'
-        });
-      </script>
+
       
 </body>
 </html>

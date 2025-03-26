@@ -7,12 +7,30 @@
 
 body {
   width: 100%;
-  max-width: 1200px; /* Establecemos un ancho máximo, gustos personales */
+  /* Establecemos un ancho máximo, gustos personales */
+  /* max-width: 1200px;  */
   margin: 0 auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   /* Colocar footer al final de la página */
   display: grid;
   min-height: 100vh;
   grid-template-rows: auto 1fr auto;
+}
+
+#nombreEmpresa a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 36px;
+  font-weight: bold;
+  padding: 0 0 0 1rem;
+}
+
+#infoEmpresa {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #fff;
+  padding: 0 1rem 0 0;
 }
 
 .navbar {
@@ -20,6 +38,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   padding: 2rem 0;
+  background-color: #00aeef;
 }
 
 li {
@@ -30,29 +49,11 @@ li {
   margin: auto 0;
 }
 
-#buscador {
-  padding: 10px;
-  display: flex;
-  justify-content: end;
-}
-
-#buscador input {
-  padding: 3px;
-  border-radius: 10px 0 0 10px;
-}
-
-#buscador button {
-  padding: 3px;
-  font-size: 1.5rem;
-  background-color: transparent;
-  border-radius: 0 10px 10px 0;
-  cursor: pointer;
-}
-
 main {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 2rem;
 }
 
 #noticiaImg {
@@ -78,6 +79,7 @@ main {
   text-align: center;
   border-top: 1px solid #000;
   padding: 1rem;
+  margin-top: 15px;
 }
 
 a {

@@ -32,14 +32,6 @@ function mostrarEmpresas(){
             });
 }
 
-function buscar() {
-    const texto = document.getElementById("busquedaInput").value.trim();
-    if (texto !== "") {
-    window.location.href = `buscador.html?query=${encodeURIComponent(texto)}`;
-    } else {
-    alert("Por favor ingresá un término de búsqueda.");
-    }
-}
 function eliminarEmpresa(id){
     if (confirm(`¿Estás seguro de que deseas eliminar la empresa de id = ${id}?`)) {
         fetch(`/api/empresas/${id}`, {
@@ -150,7 +142,6 @@ function modificarEmpresa(boton){
             domicilio: document.getElementById("domicilio").value,
             email: document.getElementById("correo").value
         };
-        //console.log("Empresa recibida:", empresaActualizada);
         fetch(`/api/empresas/${empresa.id}`, {
             method: "PUT",
             headers: {
@@ -175,10 +166,6 @@ function modificarEmpresa(boton){
     
 }
 
-function Hola(){
-    console.log("HOLA");
-}
-
 function EliminarNoticia(id,boton){
     if (confirm(`¿Estás seguro de que deseas eliminar la noticia?`)) {
         fetch(`/api/noticias/${id}`, {
@@ -192,7 +179,7 @@ function EliminarNoticia(id,boton){
         })
         .then((data) => {
             alert(data.message);
-            boton.closest("tr").remove(); // Elimina la fila de la tabla
+            boton.closest("tr").remove();
         })
         .catch((error) => {
             console.error("Error:", error);
@@ -393,8 +380,6 @@ function agregarNoticia(boton){
 
 function crearEmpresa(){
     
-
-
     const modalBody = document.querySelector("#agregarEmpresa .modal-body");
     modalBody.innerHTML = `
       <form id="empresaForm">
@@ -465,7 +450,6 @@ form.onsubmit = function (e) {
     }
 
 }
-
 
 function restablecer(){
     fetch(`/api/empresas/restablecer`, {

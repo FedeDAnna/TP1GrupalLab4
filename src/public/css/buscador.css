@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    /* margin: 20px; */
+    /* Colocar footer al final de la página */
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+    
+  }
+
+  header {
+    background-color: #00AEEF;
+    color: white;
+    padding: 10px;
+  }
+
+
+  #ult-noticias {
+    text-align: left;
+    font-size: 40px;
+  }
+
+ 
+/* 
+  #telefono {
+    font-size: 18px;
+  }
+
+  #horario {
+    font-size: 14px;
+    margin-top: 5px;
+  } */
+  td{
+    border: solid rgb(57, 57, 57) 1px;
+    border-radius: 2px;
+    text-align: left;
+  }
+  .form-inline {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 160px;
+  }
+  
+  .form-inline input {
+    padding: 3px;
+    border-radius: 10px 0 0 10px;
+    height: 25px;
+  }
+  
+  .form-inline button {
+    padding: 3px;
+    font-size: 1.5rem;
+    background-color: rgb(158, 192, 255);
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    height: 25px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    border-color: #21a7d8;
+    
+  }
+  .form-inline button:hover{
+    background-color:  rgb(122, 167, 251);
+  }
+
+  .form-inline button:active{
+    background-color: #00749e;
+  }
+  
+
+.tabla-container {
+    width: 80%; /* Ancho de la tabla */
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden; /* Asegura que la tabla no desborde */
+    display: block; 
+    overflow: auto;
+    height: 500px;
+    border: 5px solid rgb(179, 205, 255);
+    
+    
+}
+
+
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+tbody {
+    display: block;
+    overflow-y: auto;
+    height: 100%; /* 🔹 Cambia este valor para modificar el área visible con scroll */
+    
+}
+.imagenes{
+    width: 100%;
+    max-width: 250px;
+    
+}
+#tabla-noticias thead tr th:nth-child(1),
+#tabla-noticias tbody tr td:nth-child(1) {
+    width: 20%;
+}
+
+#tabla-noticias thead tr th:nth-child(2),
+#tabla-noticias tbody tr td:nth-child(2) {
+    width: 80%;
+}
+
+.titulo-noticia{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.seg-colum {
+    padding: 5px;
+}
+.fechas{
+    font-size: 13px;
+    font-weight: 650;
+}
+
+
+footer {
+    text-align: center;
+    border-top: 1px solid #000;
+    padding: 1rem;
+    height: 50px;
+    margin-top: 10px;
+  }
+
+

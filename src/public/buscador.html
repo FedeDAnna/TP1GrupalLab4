@@ -5,19 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Buscador</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/buscador.css">
 </head>
 <body>
-  <div class="container mt-4">
-    <h2>Resultados de la búsqueda</h2>
-    <div class="form-inline">
-      <input type="text" id="busquedaInput2" class="form-control mr-2" placeholder="Buscar noticias...">
-      <button class="btn btn-success" onclick="buscar()">Buscar</button>
+    <header>
+        <div class="datos">
+            <div id="ult-noticias">
+                Últimas Noticias
+            </div>
+            
+        </div>
+        <!-- <div id="denominacion">
+            Denominación Empresa
+        </div> -->
+    </header>
+    <div class="container-mt-4">
+      <div class="form-inline">
+        <input type="text" id="busquedaInput" class="form-control mr-2" placeholder="Buscar noticias...">
+        <button class="btn btn-success" onclick="mostrarNoticiasFlitradas()">Buscar</button>
+      </div>
     </div>
-    <p id="texto-buscado" class="text-muted"></p>
-
-    <!-- Contenedor donde se cargan las noticias -->
-    <div id="resultado-noticias" class="mt-4"></div>
-  </div>
+    <div  class="tabla-container">
+        <table id="tabla-noticias">
+            <tbody id="body-noticias">
+    
+            </tbody>
+            
+        </table>
+    </div>
+    
+    <footer id="footer"> Noticias © 2025 Privacy Policy </footer>
 
   <!-- Vinculamos el JS -->
   <script src="/scripts/buscador.js"></script>
