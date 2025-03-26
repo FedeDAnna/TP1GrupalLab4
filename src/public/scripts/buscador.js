@@ -1,9 +1,9 @@
 
-console.log("entro222");
+
 document.addEventListener("DOMContentLoaded", cargarpagina);
-console.log("entro");
+
 function cargarpagina(){
-  console.log("entro a cargarpagina");
+
     fetch("/api/noticias")
         .then((response) => response.json())
         .then((data) => { 
