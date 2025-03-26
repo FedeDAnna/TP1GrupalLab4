@@ -1,0 +1,102 @@
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  header {
+    background-color: #00AEEF;
+    color: white;
+    padding: 20px 0;
+  }
+
+  #telefono, #horario {
+    text-align: right;
+  }
+
+  #denominacion {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  #telefono {
+    font-size: 18px;
+  }
+
+  #horario {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  #empresaName {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #333;
+  }
+
+  .carousel-caption {
+    background: rgba(0, 174, 239, 0.7);
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  #quienesSomos {
+    padding: 40px 20px;
+    background-color: white;
+    text-align: center;
+  }
+
+  #quienesSomos h3 {
+    color: #00AEEF;
+    margin-bottom: 20px;
+  }
+
+  #quienesSomos p {
+    max-width: 800px;
+    margin: auto;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  #mapa {
+    background-color: #eee;
+    padding: 40px 20px;
+  }
+
+  #mapa h3 {
+    color: #00AEEF;
+    margin-bottom: 20px;
+  }
+
+  #mapa2 {
+    width: 100%;
+    max-width: 900px;
+    height: 400px;
+    margin: auto;
+    border: 2px solid #00AEEF;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  gmp-map-3d {
+    height: 100%;
+    width: 100%;
+  }
+
+  footer {
+    background-color: #00AEEF;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin-top: 30px;
+  }
+

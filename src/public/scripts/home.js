@@ -3,8 +3,7 @@ const id = params.get("id");
 
 document.addEventListener("DOMContentLoaded", traerEmpresa);
 
-function traerEmpresa() {
-    
+function traerEmpresa() {    
 
     if (!id) {
         console.error("No se proporcionó un ID de empresa.");
@@ -24,10 +23,46 @@ function traerEmpresa() {
             cargarHeader(empresa);
             cargarBody(empresa);
             cargarFooter(empresa);
+            if (empresa.noticias && empresa.noticias.length > 0) {
+                initCarrusel(empresa.noticias);
+            } else {
+                document.getElementById("carrusel").style.display = "none";
+            }
 
         })
         .catch(error => console.error("Error al cargar la empresa:", error));
 }
+
+function initCarrusel(noticias) {
+    const carouselContent = document.getElementById("carouselContent");
+    const indicators = document.getElementById("carouselIndicators");
+  
+    carouselContent.innerHTML = "";
+    indicators.innerHTML = "";
+  
+    noticias.forEach((noti, index) => {
+      // Indicadores
+      const li = document.createElement("li");
+      li.setAttribute("data-target", "#carrusel");
+      li.setAttribute("data-slide-to", index);
+      if (index === 0) li.classList.add("active");
+      indicators.appendChild(li);
+  
+      // Item del carrusel
+      const item = document.createElement("div");
+      item.className = `carousel-item ${index === 0 ? "active" : ""}`;
+      item.innerHTML = `
+        <a href="detalle.html?id=${noti.id}">
+          <img src="../${noti.imagen}" class="d-block w-100" alt="${noti.titulo}">
+        </a>
+        <div class="carousel-caption d-none d-md-block">
+          <h5>${noti.titulo}</h5>
+        </div>
+      `;
+      carouselContent.appendChild(item);
+    });
+}
+
 
 function cargarHeader(empresa) {
     let header = document.getElementsByTagName("header")[0];
@@ -55,7 +90,6 @@ function cargarFooter(empresa) {
 
 async function init(empresa) {
     const { Map3DElement, MapMode, Marker3DElement } = await google.maps.importLibrary("maps3d");
-    console.log(parseFloat(empresa.latitud) +" - "+  parseFloat(empresa.longitud));
     const map = new Map3DElement({
       center: { lat: parseFloat(empresa.latitud), lng: parseFloat(empresa.longitud), altitude: 0 },
       heading: 110,

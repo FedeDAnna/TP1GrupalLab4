@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buscador</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/buscador.css">
 </head>
 <body>
     <header>
-        <div id="denominacion">
+        <div class="datos">
+            <div id="ult-noticias">
+                Últimas Noticias
+            </div>
+            
+        </div>
+        <!-- <div id="denominacion">
             Denominación Empresa
-        </div>
-        <div>
-            <h3>TELEFONO</h3>
-        </div>
-        <div id="telefono">
-            Telefono Y Horario
-        </div>
-        <div id="horario">
-            Horario
-        </div>
+        </div> -->
     </header>
-    <div class="buscador">
-        <input type="text" placeholder="Buscar noticias..." id="buscar-noticia">
-        <button>Buscar</button>
+    <div class="container-mt-4">
+      <div class="form-inline">
+        <input type="text" id="busquedaInput" class="form-control mr-2" placeholder="Buscar noticias...">
+        <button class="btn btn-success" onclick="mostrarNoticiasFlitradas()">Buscar</button>
+      </div>
     </div>
-    <div class="total-noticias">
-        <table>
-            <thead>
-                
-            </thead>
-            <tbody id="tbody-noticias">
-
+    <div  class="tabla-container">
+        <table id="tabla-noticias">
+            <tbody id="body-noticias">
+    
             </tbody>
+            
         </table>
     </div>
+    
+    <footer id="footer"> Noticias © 2025 Privacy Policy </footer>
 
+  <!-- Vinculamos el JS -->
+  <script src="/scripts/buscador.js"></script>
 </body>
-<footer id="footer"> Pie de pagina </footer>
 </html>

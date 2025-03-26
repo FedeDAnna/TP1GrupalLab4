@@ -1,8 +1,9 @@
-const { response } = require("express");
 
+console.log("entro222");
 document.addEventListener("DOMContentLoaded", cargarpagina);
-
+console.log("entro");
 function cargarpagina(){
+  console.log("entro a cargarpagina");
     fetch("/api/noticias")
         .then((response) => response.json())
         .then((data) => { 
@@ -19,37 +20,40 @@ function mostrarNoticias(data){
     tbNoticias.innerHTML="";
             data.forEach(noticia => {
                 const fila = document.createElement("tr");
+
+                let fechaFormat = noticia.fecha_publicacion.split("T")[0];
+                let arrayFecha = fechaFormat.split("-");
+                let formatArg = `${arrayFecha[2]}-${arrayFecha[1]}-${arrayFecha[0]}`;
+
                 fila.innerHTML = `
-                    <td>${noticia.imagen}</td>
-                    <td>
-                    ${noticia.titulo}<br>
-                    ${noticia.resumen}
-                    ${noticia.fecha}
+                    <td><img class="imagenes" src="../${noticia.imagen}" alt="Texto img"></td>
+                    <td style="padding:10px; ">
+                    <span class="titulo-noticia">${noticia.titulo}</span><br>
+                    ${noticia.resumen}<br>
+                    <span class="fechas">Fecha de Publicación: ${formatArg}</span>
                     </td>
                 `;
                 tbNoticias.appendChild(fila);
             });
+            
 }
 
-function mostrarNoticiasFlitradas(texto){
-
-    fetch(`/api/noticia/${texto}`)
+function mostrarNoticiasFlitradas(){
+  
+  var texto = document.getElementById("busquedaInput").value;
+  
+    fetch(`/api/noticias/filtradas/${texto}`)
         .then(response => response.json())
         .then(data => {
-            const tbNoticias = document.getElementById("body-noticias");
-            tbNoticias.innerHTML="";
-            data.forEach(noticia => {
-                const fila = document.createElement("tr");
-                fila.innerHTML = `
-                    <td>${noticia.imagen}</td>
-                    <td>
-                    ${noticia.titulo}<br>
-                    ${noticia.resumen}
-                    ${noticia.fecha}
-                    </td>
-                `;
-                tbNoticias.appendChild(fila);
-            });
-        })
+          
+            mostrarNoticias(data);
+            }); 
+        
 
 }
+
+
+
+
+
+
