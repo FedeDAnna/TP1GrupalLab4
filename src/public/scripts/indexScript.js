@@ -236,6 +236,7 @@ function modificarNoticia(boton){
       </form>
     `;
     
+    inicializarEditor("#contenidohtml");
     const form = document.getElementById("noticiaForm");
 
     form.onsubmit = function (e) {
@@ -246,7 +247,7 @@ function modificarNoticia(boton){
             titulo: document.getElementById("titulo").value,
             resumen: document.getElementById("resumen").value,
             imagen: document.getElementById("imagen").value,
-            contenidohtml: document.getElementById("contenidohtml").value,
+            contenidohtml: tinymce.get('contenidohtml').getContent(),
             publicada: document.getElementById("publicada").value,
             fecha_publicacion: document.getElementById("fechaPublicacion").value
         };
@@ -321,8 +322,8 @@ function agregarNoticia(boton){
           <input type="text" id="imagen" name="imagen" required>
 
           <label for="contenidohtml">Contenido HTML:</label>
-          <textarea id="contenidohtml" name="contenidohtml" rows="3" required></textarea>
-    
+          <textarea id="contenidohtml" name="contenidohtml" rows="3" ></textarea>
+          
           <label for="publicada">¿Publicada?</label>
           <select id="publicada" name="publicada" class="form-control" required>
             <option value="Y" >Sí</option>
@@ -335,7 +336,7 @@ function agregarNoticia(boton){
           <button type="submit" class="btn btn-primary">Listo</button>
       </form>
     `;
-    
+    inicializarEditor("#contenidohtml");
     const form = document.getElementById("agregarNoticiaForm");
 
     form.onsubmit = function (e) {
@@ -345,7 +346,7 @@ function agregarNoticia(boton){
             titulo: document.getElementById("titulo").value,
             resumen: document.getElementById("resumen").value,
             imagen: document.getElementById("imagen").value,
-            contenido_html: document.getElementById("contenidohtml").value,
+            contenido_html: tinymce.get('contenidohtml').getContent(),
             publicada: document.getElementById("publicada").value,
             fecha_publicacion: document.getElementById("fechaPublicacion").value,
             idEmpresa: empresa.id
@@ -466,49 +467,6 @@ form.onsubmit = function (e) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function restablecer(){
     fetch(`/api/empresas/restablecer`, {
         method: "PUT",
@@ -529,3 +487,14 @@ function restablecer(){
         alert("Hubo un error al restablecer");
     });
 }
+function inicializarEditor(selector) {
+    tinymce.remove(selector);
+  
+    tinymce.init({
+      selector: selector,
+      height: 200,
+      menubar: false,
+      plugins: 'lists link image table code',
+      toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code'
+    });
+  }
